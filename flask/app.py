@@ -18,5 +18,11 @@ def login():
     # return "login"
     return render_template('login.html')
 
+
+@app.route('/flogin')
+def flogin():
+    return render_template('flogin.html')
 if __name__ == "__main__" :
     app.run(debug=True)
+
+        
