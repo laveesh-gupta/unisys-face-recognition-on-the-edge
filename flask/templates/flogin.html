@@ -7,6 +7,41 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/login">Unable to login through biometrics? Click here</a>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <div id="new">
+
+    </div>
 </body>
+<script>
+
+    var video = document.getElementById('video');
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+        });
+    }
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.getElementById('video');
+
+
+    var tag = document.createElement('a');
+    tag.setAttribute('href', "/login");
+    tag.innerText = "Unable to login through biometrics? Click here"
+    // var text = document.createTextNode("Unable to login through biometrics? Click here");
+    // tag.appendChild(text);
+    var element = document.getElementById("new");
+
+    setTimeout(function(){
+        // <video id="video" width="640" height="480" autoplay></video>
+        // <button id="snap">Snap Photo</button>
+        // <canvas id="canvas" width="640" height="480"></canvas>
+        // <a href='/login'>Unable to login through biometrics? Click here </a>");
+        element.appendChild(tag);
+    }, 15000);
+</script>
 </html>
