@@ -1,7 +1,9 @@
-from flask import Flask , render_template,request
+from flask import Flask , render_template,request,abort
 from flask_mysqldb import MySQL
 from datetime import date
+from werkzeug.utils import secure_filename
 import yaml
+import os
 # import face_recognition
 # import cv2
 # import numpy as np 
@@ -67,9 +69,43 @@ def view_atd():
         return render_template('view_atd.html',empDetails=empDetails)
     # return render_template("view_atd.html")
 
-@app.route('/register')
+@app.route('/register',methods=['GET','POST'])
 def register():
+    if request.method=='POST':
+        # upload_files()
+        
+        uploaded_file = request.files['file']
+        filename = secure_filename(uploaded_file.filename)
+        if filename != '':
+            file_ext = os.path.splitext(filename)[1]
+        if file_ext not in app.config['.jpg']:
+            abort(400)
+        uploaded_file.save(os.path.join(app.config['D:\unisys-face-recognition-on-the-edge\people'], filename))
+        
+        userDetails=request.form
+        name = userDetails['name']
+        username=userDetails['username']
+        password=userDetails['password']
+        print(name,username,password)
+        cur = mysql.connection.cursor()
+        result = cur.execute("SELECT MAX(id) FROM employee")
+        e_id=cur.fetchall()
+        e_id=e_id[0][0]
+        cur.execute("INSERT INTO employee VALUES("+str(e_id+1)+",%s,%s,%s)",(name,password,username))
+        mysql.connection.commit()
+        return "<h1>Registration Successful</h1>"
     return render_template("register.html")
+
+# def upload_files():
+#     uploaded_file = request.files['file']
+#     filename = secure_filename(uploaded_file.filename)
+#     if filename != '':
+#         file_ext = os.path.splitext(filename)[1]
+#         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
+#             abort(400)
+#     uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+    # return redirect(url_for('index'))
+
 
 @app.route('/emp_login',methods=['GET','POST'])
 def login():
