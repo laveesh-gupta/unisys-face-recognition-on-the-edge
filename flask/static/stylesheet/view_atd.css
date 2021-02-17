@@ -1,0 +1,22 @@
+.child {
+    /* Center vertically and horizontally */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+  }
+
+table{
+    margin-top: 6%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1{
+    text-align: center;
+}
+/* 
+td{
+    margin:10px;
+    padding: 10px;
+} */

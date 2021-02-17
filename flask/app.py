@@ -51,7 +51,12 @@ def alogin():
 
 @app.route('/view_atd')
 def view_atd():
-    return render_template("view_atd.html")
+    cur = mysql.connection.cursor()
+    resultValue = cur.execute("SELECT * FROM employee")
+    if resultValue > 0:
+        empDetails = cur.fetchall()
+        return render_template('view_atd.html',empDetails=empDetails)
+    # return render_template("view_atd.html")
 
 @app.route('/register')
 def register():

@@ -1,0 +1,28 @@
+<hmtl>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.rtl.min.css" integrity="sha384-4dNpRvNX0c/TdYEbYup8qbjvjaMrgUPh+g4I03CnNtANuv+VAvPL6LqdwzZKV38G" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/stylesheet/view_atd.css">
+    <title>
+        Attendance
+    </title>
+
+</head>
+<body>
+<div class="abc">
+  <!-- <div class="child">  -->
+    <h1>Employee Details</h1>
+    <table border="3">
+      {% for emp in empDetails %}
+      <a href="/emp/">
+        <tr>
+        <td>{{emp[0]}}</td>
+        <td>{{emp[1]}}</td>
+        <td>{{emp[2]}}</td>
+        </tr>
+      </a>
+      {% endfor %}
+    </table>
+  <!-- </div> -->
+</div>
+</body>
+</html>
