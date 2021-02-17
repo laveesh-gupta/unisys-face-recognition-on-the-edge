@@ -52,10 +52,10 @@ def login():
             print(type(emp[0][0]))
             cur.execute("insert into atd values("+str(emp[0][0])+",'13-02',true);")
             mysql.connection.commit()
-            return "Successful"
+            return render_template('success.html')
         else :
             cur.close()
-    return render_template('login.html')
+    return render_template('fail.html')
 
 # @app.route('/flogin')
 # def flogin():
