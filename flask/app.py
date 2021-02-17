@@ -30,8 +30,34 @@ def about():
     # return "about"
     return render_template('about.html')
 
+@app.route('/ad_login',methods=['POST','GET'])
+def alogin():
+    if request.method=='POST':
+        userDetails=request.form
+        username=userDetails['username']
+        password=userDetails['password']
+        cur = mysql.connection.cursor()
+        # cur.execute("INSERT INTO users(name, password) VALUES(%s, %s)",(name, password))
+        result = cur.execute("SELECT* FROM admin WHERE username = (%s) AND password = (%s)",(username,password) ) 
+        # mysql.connection.commit()
+        if result>0:
+            # print(result)
+            return render_template("admin.html")
+        else :
+            cur.close()
+            return render_template('fail.html')
+    return render_template('login.html')
 
-@app.route('/login',methods=['GET','POST'])
+
+@app.route('/view_atd')
+def view_atd():
+    return render_template("view_atd.html")
+
+@app.route('/register')
+def register():
+    return render_template("register.html")
+    
+@app.route('/emp_login',methods=['GET','POST'])
 def login():
     # return "login"
     if request.method=='POST':
@@ -44,18 +70,22 @@ def login():
         # mysql.connection.commit()
         if result>0:
             # print(result)
-            # today = date.today()
+            today = date.today()
+            # today = (today.strftime("%Y"))+"-"+(today.strftime("%m"))+"-"+(today.strftime("%d"))
+            today=str(today)
+            print(today)
             # stoday = today+""
             # print(typeof(today))
             # e_id = int(result.id)
             emp = cur.fetchall()
-            print(type(emp[0][0]))
-            cur.execute("insert into atd values("+str(emp[0][0])+",'13-02',true);")
+            # print(type(emp[0][0]))
+            cur.execute("insert into attd values("+str(emp[0][0])+","+today+",true);")
             mysql.connection.commit()
             return render_template('success.html')
         else :
             cur.close()
-    return render_template('fail.html')
+            return render_template('fail.html')
+    return render_template('login.html')
 
 # @app.route('/flogin')
 # def flogin():

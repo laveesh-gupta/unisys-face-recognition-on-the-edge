@@ -1,0 +1,96 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/stylesheet/register.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="" method="POST">
+      
+      
+      <-  <div style="height: 0px; overflow: hidden">
+        <input type="file" id="fileInput" name="fileInput" />
+      </div>
+      <button type="button" onclick="chooseFile();">choose file</button><br>-> 
+      
+      <div class="choose_file">
+        <span>Choose File</span>
+        <input name="Select File" type="file" />
+      </div>
+      <br>
+      <br>
+      Enter Name <input type="text" name="name" placeholder="Name"><br>
+      <br>
+      Enter Username <input type="text" name = "username" placeholder="userName"><br>
+      <br>
+      Enter Password <input type="text" name = "password" placeholder="password"><br>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+  <script>
+    function chooseFile() {
+       $("#fileInput").click();
+    }
+ </script>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/static/stylesheet/register.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Register Form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <!-- <h3 class="text-center text-info">Login</h3> -->
+                            <br>
+                            <div class="form-group">
+                            <!-- <div class="choose_file"> -->
+                                <!-- <span>Choose File</span> -->
+                                <label for="username" class="text-info">Choose File</label>
+                                <input name="Select File" type="file" />
+                              </div>
+                            <!-- </div> -->
+                            <div class="form-group">
+                              
+                                <label for="name" class="text-info">Name:</label><br>
+                                <input type="text" name="name" id="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                
+                                <label for="username" class="text-info">Username:</label><br>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                               
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="text" name="password" id="password" class="form-control">
+                            </div>
+                                
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
