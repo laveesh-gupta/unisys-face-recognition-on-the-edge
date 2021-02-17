@@ -69,19 +69,18 @@ def view_atd():
         return render_template('view_atd.html',empDetails=empDetails)
     # return render_template("view_atd.html")
 
+@app.route('/uploadfile',methods=['GET','POST'])
+def uploadfile():
+    if request.method == 'POST':
+      f = request.files['file']
+      f.save(os.path.join('D:\\unisys-face-recognition-on-the-edge\\people',secure_filename(f.filename)))
+      return render_template("register.html")
+
+    return render_template("uploadfiles.html")
+
 @app.route('/register',methods=['GET','POST'])
 def register():
     if request.method=='POST':
-        # upload_files()
-        
-        uploaded_file = request.files['file']
-        filename = secure_filename(uploaded_file.filename)
-        if filename != '':
-            file_ext = os.path.splitext(filename)[1]
-        if file_ext not in app.config['.jpg']:
-            abort(400)
-        uploaded_file.save(os.path.join(app.config['D:\unisys-face-recognition-on-the-edge\people'], filename))
-        
         userDetails=request.form
         name = userDetails['name']
         username=userDetails['username']

@@ -58,35 +58,25 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
-                            <!-- <h3 class="text-center text-info">Login</h3> -->
-                            <br>
-                            <div class="form-group">
-                            <!-- <div class="choose_file"> -->
-                                <!-- <span>Choose File</span> -->
-                                <label for="username" class="text-info">Choose File</label>
-                                <input name="file" type="file" />
-                              </div>
-                            <!-- </div> -->
-                            <div class="form-group">
+                        <form id="login-form" class="form" action="/register" method="post">
+                          <div class="form-group">
+                              <label for="name" class="text-info">Name:</label><br>
+                              <input type="text" name="name" id="name" class="form-control">
+                          </div>
+                          <div class="form-group">
                               
-                                <label for="name" class="text-info">Name:</label><br>
-                                <input type="text" name="name" id="name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
-                            </div>
-                            <div class="form-group">
-                               
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
-                            </div>
-                                
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
-                            </div>
-                        </form>
+                              <label for="username" class="text-info">Username:</label><br>
+                              <input type="text" name="username" id="username" class="form-control">
+                          </div>
+                          <div class="form-group">
+                             
+                              <label for="password" class="text-info">Password:</label><br>
+                              <input type="text" name="password" id="password" class="form-control">
+                          </div>
+                              
+                              <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                          </div>
+                      </form>
                     </div>
                 </div>
             </div>
