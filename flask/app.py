@@ -1,4 +1,6 @@
-from flask import Flask , render_template
+from flask import Flask , render_template,request
+from flask_mysqldb import MySQL
+import yaml
 import face_recognition
 import cv2
 import numpy as np 
@@ -8,6 +10,14 @@ from common import get_users
 # model = pickle.load(open('model.pkl', 'rb'))
 
 app = Flask(__name__)
+
+db = yaml.load(open('db.yaml'))
+app.config['MYSQL_HOST'] = db['mysql_host']
+app.config['MYSQL_USER'] = db['mysql_user']
+app.config['MYSQL_PASSWORD'] = db['mysql_password']
+app.config['MYSQL_DB'] = db['mysql_db']
+
+mysql = MySQL(app)
 
 @app.route('/')
 def index():
@@ -20,9 +30,17 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/login')
+@app.route('/login',methods=['GET','POST'])
 def login():
     # return "login"
+    if request.method=='POST':
+        userDetails=request.form
+        name=userDetails['username']
+        password=userDetails['password']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO users(name, password) VALUES(%s, %s)",(name, password))
+        mysql.connection.commit()
+        cur.close()
     return render_template('login.html')
 
 
