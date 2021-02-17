@@ -1,0 +1,29 @@
+<hmtl>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.rtl.min.css" integrity="sha384-4dNpRvNX0c/TdYEbYup8qbjvjaMrgUPh+g4I03CnNtANuv+VAvPL6LqdwzZKV38G" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/stylesheet/view_atd.css">
+        <title>
+            Employee Detail
+        </title>
+    
+    </head>
+    <body>
+    <div class="abc">
+      <!-- <div class="child">  -->
+        <h1>Employee Detail</h1>
+        <table border="3">
+            <tr>
+                <th>Date</th>
+                <th>Present</th>
+            </tr>
+          {% for emp in detail %}
+            <tr>
+            <td>{{emp[1]}} </a></td>
+            <td>{{emp[2]}}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      <!-- </div> -->
+    </div>
+    </body>
+    </html>

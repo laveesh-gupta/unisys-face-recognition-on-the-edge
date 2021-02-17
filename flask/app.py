@@ -48,6 +48,15 @@ def alogin():
             return render_template('fail.html')
     return render_template('login.html')
 
+@app.route('/emp/<id>')
+def emp_detail(id):
+    print(id)
+    cur = mysql.connection.cursor()
+    resultValue = cur.execute("SELECT * FROM attd where e_id="+id+";")
+    if resultValue > 0 :    
+        detail = cur.fetchall()
+        print(detail)
+        return render_template("emp_detail.html",detail = detail)
 
 @app.route('/view_atd')
 def view_atd():
@@ -61,7 +70,7 @@ def view_atd():
 @app.route('/register')
 def register():
     return render_template("register.html")
-    
+
 @app.route('/emp_login',methods=['GET','POST'])
 def login():
     # return "login"

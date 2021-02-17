@@ -10,16 +10,19 @@
 <body>
 <div class="abc">
   <!-- <div class="child">  -->
-    <h1>Employee Details</h1>
+    <h1>Employees Details</h1>
     <table border="3">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+      </tr>
       {% for emp in empDetails %}
-      <a href="/emp/">
         <tr>
         <td>{{emp[0]}}</td>
-        <td>{{emp[1]}}</td>
-        <td>{{emp[2]}}</td>
+        <td><a href = "/emp/{{emp[0]}}"> {{emp[1]}} </a></td>
+        <td>{{emp[3]}}</td>
         </tr>
-      </a>
       {% endfor %}
     </table>
   <!-- </div> -->
