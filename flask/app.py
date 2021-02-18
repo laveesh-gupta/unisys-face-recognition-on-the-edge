@@ -40,7 +40,7 @@ def alogin():
         password=userDetails['password']
         cur = mysql.connection.cursor()
         # cur.execute("INSERT INTO users(name, password) VALUES(%s, %s)",(name, password))
-        result = cur.execute("SELECT* FROM admin WHERE username = (%s) AND password = (%s)",(username,password) ) 
+        result = cur.execute("SELECT * FROM admin WHERE username = (%s) AND password = (%s)",(username,password) ) 
         # mysql.connection.commit()
         if result>0:
             # print(result)
@@ -115,7 +115,7 @@ def login():
         password=userDetails['password']
         cur = mysql.connection.cursor()
         # cur.execute("INSERT INTO users(name, password) VALUES(%s, %s)",(name, password))
-        result = cur.execute("SELECT* FROM employee WHERE username = (%s) AND password = (%s)",(username,password) ) 
+        result = cur.execute("SELECT * FROM employee WHERE username = (%s) AND password = (%s)",(username,password) ) 
         # mysql.connection.commit()
         if result>0:
             # print(result)
@@ -162,6 +162,7 @@ def login():
 #     face_names = []
 #     process_this_frame = True
 #     input_vid = []
+#     recognized=[]
 
 #     while True:
 #     # Grab a single frame of video
@@ -246,10 +247,26 @@ def login():
 
 #     # pickle.dump(model, open('model.pkl','wb'))
 #     # modelpkl = pickle.load(open('model.pkl','rb'))
+    # for x in face_names:
+    #     if x not in recognized:
+    #         recognized.append(x)
+    # for x in recognized:
+    #     userDetails=request.form
+    #     name = userDetails['name']
+    #     username=userDetails['username']
+    #     password=userDetails['password']
+    #     cur = mysql.connection.cursor()
+    #     result = cur.execute("SELECT id FROM employee where username="+x+";")
+    #     e_id=cur.fetchall()
+    #     e_id=e_id[0][0]
+    #     today = date.today()
+    #     today=str(today)
+    #     cur.execute("INSERT INTO attd VALUES("+str(e_id)+","+today+",true)")
+    #     mysql.connection.commit()
 
 #     # Release handle to the webcam
-#     video_capture.release()
-#     cv2.destroyAllWindows()
+    # video_capture.release()
+    # cv2.destroyAllWindows()
 
 #     return render_template('flogin.html')
 
