@@ -89,31 +89,34 @@ def uploadfile():
     if request.method == "POST":
         f = request.files["file"]
         f.save(os.path.join("people", secure_filename(f.filename)))
-        return render_template("register.html")
+        return "<h1>Registration Successful</h1>"
 
-    return render_template("uploadfiles.html")
+    return render_template("uploadfile.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        userDetails = request.form
-        name = userDetails["name"]
-        username = userDetails["username"]
-        password = userDetails["password"]
-        print(name, username, password)
-        cur = mysql.connection.cursor()
-        result = cur.execute("SELECT MAX(id) FROM employee")
-        e_id = cur.fetchall()
-        e_id = e_id[0][0]
-        cur.execute(
-            "INSERT INTO employee VALUES(" + str(e_id + 1) + ",%s,%s,%s)",
-            (name, username, password),
-        )
-        mysql.connection.commit()
-        return "<h1>Registration Successful</h1>"
-    return render_template("register.html")
-
+    try:
+        if request.method == "POST":
+            userDetails = request.form
+            name = userDetails["name"]
+            username = userDetails["username"]
+            password = userDetails["password"]
+            print(name, username, password)
+            cur = mysql.connection.cursor()
+            result = cur.execute("SELECT MAX(id) FROM employee")
+            e_id = cur.fetchall()
+            e_id = e_id[0][0]
+            cur.execute(
+                "INSERT INTO employee VALUES(" + str(e_id + 1) + ",%s,%s,%s)",
+                (name, password, username),
+            )
+            mysql.connection.commit()
+            return render_template("uploadfiles.html")
+        
+        return render_template("register.html")
+    except:
+        return render_template("na.html")
 
 # def upload_files():
 #     uploaded_file = request.files['file']
@@ -152,7 +155,7 @@ def login():
             emp = cur.fetchall()
             # print(type(emp[0][0]))
             cur.execute(
-                "insert into attd values(" + str(emp[0][0]) + "," + today + ",true);"
+                "insert into attd values(" + str(emp[0][0]) + ",'"+str(emp[0][3])+"','" + today + "',true);"
             )
             mysql.connection.commit()
             return render_template("success.html")
@@ -319,31 +322,34 @@ def flogin():
     video_capture.release()
     cv2.destroyAllWindows()
 
-    for x in face_names:
-        if x not in recognized:
-            recognized.append(x)
+    try:
+        for x in face_names:
+            if x not in recognized:
+                recognized.append(x)
     
     # userDetails = request.form
     # name = userDetails["name"]
     # username = userDetails["username"]
     # password = userDetails["password"]
-    cur = mysql.connection.cursor()
+        cur = mysql.connection.cursor()
 
-    for x in recognized:
-        print(x)
-        result = cur.execute("SELECT id FROM employee where username='" + x + "';")
-        e_id = cur.fetchall()
-        e_id = e_id[0][0]
-        today = date.today()
-        today = str(today)
-        cur.execute("INSERT INTO attd VALUES(" + str(e_id) + "," + today + ",true)")
-        mysql.connection.commit()
+        for x in recognized:
+            print(x)
+            result = cur.execute("SELECT id FROM employee where username='" + x + "';")
+            e_id = cur.fetchall()
+            e_id = e_id[0][0]
+            today = date.today()
+            today = str(today)
+            cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
+            mysql.connection.commit()
 
-    x=recognized[0]
-    if x:
-        return render_template("success.html")
+        x=recognized[0]
+        if x:
+            return render_template("success.html")
 
-    return render_template("flogin.html")
+        return render_template("flogin.html")
+    except:
+        return render_template("flogin.html")
 
 
 if __name__ == "__main__":
