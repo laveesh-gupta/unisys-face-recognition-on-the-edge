@@ -1,99 +1,119 @@
-from flask import Flask , render_template,request,abort
+from flask import Flask, render_template, request, abort
 from flask_mysqldb import MySQL
 from datetime import date
 from werkzeug.utils import secure_filename
 import yaml
 import os
-# import face_recognition
-# import cv2
-# import numpy as np 
-# from livenessmodel import get_liveness_model
-# from common import get_users
+import face_recognition
+import cv2
+import numpy as np
+from livenessmodel import get_liveness_model
+from common import get_users
+
 # import pickle
 # model = pickle.load(open('model.pkl', 'rb'))
 
 app = Flask(__name__)
 
-db = yaml.load(open('db.yaml'))
-app.config['MYSQL_HOST'] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
+db = yaml.load(open("db.yaml"))
+app.config["MYSQL_HOST"] = db["mysql_host"]
+app.config["MYSQL_USER"] = db["mysql_user"]
+app.config["MYSQL_PASSWORD"] = db["mysql_password"]
+app.config["MYSQL_DB"] = db["mysql_db"]
 
 mysql = MySQL(app)
 
-@app.route('/')
+
+@app.route("/")
 def index():
     # return "hey"
-    return render_template('landing.html')
+    return render_template("landing.html")
 
-@app.route('/about')
+
+@app.route("/about")
 def about():
     # return "about"
-    return render_template('about.html')
+    return render_template("about.html")
 
-@app.route('/ad_login',methods=['POST','GET'])
+
+@app.route("/ad_login", methods=["POST", "GET"])
 def alogin():
-    if request.method=='POST':
-        userDetails=request.form
-        username=userDetails['username']
-        password=userDetails['password']
+    if request.method == "POST":
+        userDetails = request.form
+        username = userDetails["username"]
+        password = userDetails["password"]
         cur = mysql.connection.cursor()
         # cur.execute("INSERT INTO users(name, password) VALUES(%s, %s)",(name, password))
-        result = cur.execute("SELECT * FROM admin WHERE username = (%s) AND password = (%s)",(username,password) ) 
+        result = cur.execute(
+            "SELECT * FROM admin WHERE username = (%s) AND password = (%s)",
+            (username, password),
+        )
         # mysql.connection.commit()
-        if result>0:
+        if result > 0:
             # print(result)
             return render_template("admin.html")
-        else :
+        else:
             cur.close()
-            return render_template('fail.html')
-    return render_template('login.html')
+            return render_template("fail.html")
+    return render_template("login.html")
 
-@app.route('/emp/<id>')
+
+@app.route("/emp/<id>")
 def emp_detail(id):
     print(id)
     cur = mysql.connection.cursor()
-    resultValue = cur.execute("SELECT * FROM attd where e_id="+id+";")
-    if resultValue > 0 :    
-        detail = cur.fetchall()
-        print(detail)
-        return render_template("emp_detail.html",detail = detail)
+    try:
+        resultValue = cur.execute("SELECT * FROM attd where e_id=" + id + ";")
+        if resultValue > 0:
+            detail = cur.fetchall()
+            print(detail)
+            if detail:
+                return render_template("emp_detail.html", detail=detail)
+        else:
+            return render_template("na.html")
+    except:
+        return render_template("na.html")
 
-@app.route('/view_atd')
+@app.route("/view_atd")
 def view_atd():
     cur = mysql.connection.cursor()
     resultValue = cur.execute("SELECT * FROM employee")
     if resultValue > 0:
         empDetails = cur.fetchall()
-        return render_template('view_atd.html',empDetails=empDetails)
+        return render_template("view_atd.html", empDetails=empDetails)
     # return render_template("view_atd.html")
 
-@app.route('/uploadfile',methods=['GET','POST'])
+
+@app.route("/uploadfile", methods=["GET", "POST"])
 def uploadfile():
-    if request.method == 'POST':
-      f = request.files['file']
-      f.save(os.path.join('D:\\unisys-face-recognition-on-the-edge\\people',secure_filename(f.filename)))
-      return render_template("register.html")
+    if request.method == "POST":
+        f = request.files["file"]
+        f.save(os.path.join("people", secure_filename(f.filename)))
+        return render_template("register.html")
 
     return render_template("uploadfiles.html")
 
-@app.route('/register',methods=['GET','POST'])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method=='POST':
-        userDetails=request.form
-        name = userDetails['name']
-        username=userDetails['username']
-        password=userDetails['password']
-        print(name,username,password)
+    if request.method == "POST":
+        userDetails = request.form
+        name = userDetails["name"]
+        username = userDetails["username"]
+        password = userDetails["password"]
+        print(name, username, password)
         cur = mysql.connection.cursor()
         result = cur.execute("SELECT MAX(id) FROM employee")
-        e_id=cur.fetchall()
-        e_id=e_id[0][0]
-        cur.execute("INSERT INTO employee VALUES("+str(e_id+1)+",%s,%s,%s)",(name,password,username))
+        e_id = cur.fetchall()
+        e_id = e_id[0][0]
+        cur.execute(
+            "INSERT INTO employee VALUES(" + str(e_id + 1) + ",%s,%s,%s)",
+            (name, username, password),
+        )
         mysql.connection.commit()
         return "<h1>Registration Successful</h1>"
     return render_template("register.html")
+
 
 # def upload_files():
 #     uploaded_file = request.files['file']
@@ -103,172 +123,228 @@ def register():
 #         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
 #             abort(400)
 #     uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-    # return redirect(url_for('index'))
+# return redirect(url_for('index'))
 
 
-@app.route('/emp_login',methods=['GET','POST'])
+@app.route("/emp_login", methods=["GET", "POST"])
 def login():
     # return "login"
-    if request.method=='POST':
-        userDetails=request.form
-        username=userDetails['username']
-        password=userDetails['password']
+    if request.method == "POST":
+        userDetails = request.form
+        username = userDetails["username"]
+        password = userDetails["password"]
         cur = mysql.connection.cursor()
         # cur.execute("INSERT INTO users(name, password) VALUES(%s, %s)",(name, password))
-        result = cur.execute("SELECT * FROM employee WHERE username = (%s) AND password = (%s)",(username,password) ) 
+        result = cur.execute(
+            "SELECT * FROM employee WHERE username = (%s) AND password = (%s)",
+            (username, password),
+        )
         # mysql.connection.commit()
-        if result>0:
+        if result > 0:
             # print(result)
             today = date.today()
             # today = (today.strftime("%Y"))+"-"+(today.strftime("%m"))+"-"+(today.strftime("%d"))
-            today=str(today)
+            today = str(today)
             print(today)
             # stoday = today+""
             # print(typeof(today))
             # e_id = int(result.id)
             emp = cur.fetchall()
             # print(type(emp[0][0]))
-            cur.execute("insert into attd values("+str(emp[0][0])+","+today+",true);")
+            cur.execute(
+                "insert into attd values(" + str(emp[0][0]) + "," + today + ",true);"
+            )
             mysql.connection.commit()
-            return render_template('success.html')
-        else :
+            return render_template("success.html")
+        else:
             cur.close()
-            return render_template('fail.html')
-    return render_template('login.html')
-
-# @app.route('/flogin')
-# def flogin():
-
-#     font = cv2.FONT_HERSHEY_DUPLEX
-
-#     # Get the liveness network
-#     model = get_liveness_model()
-
-#     # load weights into new model
-#     model.load_weights("model/model.h5")
-#     print("Loaded model from disk")
-
-#     # Read the users data and create face encodings 
-#     known_names, known_encods = get_users()
+            return render_template("fail.html")
+    return render_template("login.html")
 
 
-#     video_capture = cv2.VideoCapture(0)
-#     video_capture.set(3, 640)
-#     video_capture.set(4, 480)
+@app.route("/flogin")
+def flogin():
 
-#     # Initialize some variables
-#     face_locations = []
-#     face_encodings = []
-#     face_names = []
-#     process_this_frame = True
-#     input_vid = []
-#     recognized=[]
+    font = cv2.FONT_HERSHEY_DUPLEX
 
-#     while True:
-#     # Grab a single frame of video
-#         if len(input_vid) < 24:
+    # Get the liveness network
+    model = get_liveness_model()
 
-#             ret, frame = video_capture.read()
+    # load weights into new model
+    model.load_weights("model/model.h5")
+    print("Loaded model from disk")
 
-#             liveimg = cv2.resize(frame, (100,100))
-#             liveimg = cv2.cvtColor(liveimg, cv2.COLOR_BGR2GRAY)
-#             input_vid.append(liveimg)
-#         else:
-#             ret, frame = video_capture.read()
+    # Read the users data and create face encodings
+    known_names, known_encods = get_users()
 
-#             liveimg = cv2.resize(frame, (100,100))
-#             liveimg = cv2.cvtColor(liveimg, cv2.COLOR_BGR2GRAY)
-#             input_vid.append(liveimg)
-#             inp = np.array([input_vid[-24:]])
-#             inp = inp/255
-#             inp = inp.reshape(1,24,100,100,1)
-#             pred = model.predict(inp)
-#             input_vid = input_vid[-25:]
+    video_capture = cv2.VideoCapture(0)
+    video_capture.set(3, 640)
+    video_capture.set(4, 480)
 
-#             if pred[0][0]> .95:
+    # Initialize some variables
+    face_locations = []
+    face_encodings = []
+    face_names = []
+    process_this_frame = True
+    input_vid = []
+    recognized = []
 
-#                 # Resize frame of video to 1/4 size for faster face recognition processing
-#                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    while True:
+        # Grab a single frame of video
+        if len(input_vid) < 24:
 
-#                 # Only process every other frame of video to save time
-#                 if process_this_frame:
-#                     # Find all the faces and face encodings in the current frame of video
-#                     face_locations = face_recognition.face_locations(small_frame)
-#                     face_encodings = face_recognition.face_encodings(small_frame, face_locations)
-#                     name = "Unknown"
-#                     face_names = []
-#                     for face_encoding in face_encodings:
-#                         for ii in range(len(known_encods)):
-#                             # See if the face is a match for the known face(s)
-#                             match = face_recognition.compare_faces([known_encods[ii]], face_encoding)
+            ret, frame = video_capture.read()
 
-#                             if match[0]:
-#                                 name = known_names[ii]
+            liveimg = cv2.resize(frame, (100, 100))
+            liveimg = cv2.cvtColor(liveimg, cv2.COLOR_BGR2GRAY)
+            input_vid.append(liveimg)
+        else:
+            ret, frame = video_capture.read()
 
-#                         face_names.append(name)
+            liveimg = cv2.resize(frame, (100, 100))
+            liveimg = cv2.cvtColor(liveimg, cv2.COLOR_BGR2GRAY)
+            input_vid.append(liveimg)
+            inp = np.array([input_vid[-24:]])
+            inp = inp / 255
+            inp = inp.reshape(1, 24, 100, 100, 1)
+            pred = model.predict(inp)
+            input_vid = input_vid[-25:]
 
-#                 process_this_frame = not process_this_frame
+            if pred[0][0] > 0.95:
 
-#                 unlock = False
-#                 for n in face_names:
+                # Resize frame of video to 1/4 size for faster face recognition processing
+                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-#                     if n != 'Unknown':
-#                         unlock=True
+                # Only process every other frame of video to save time
+                if process_this_frame:
+                    # Find all the faces and face encodings in the current frame of video
+                    face_locations = face_recognition.face_locations(small_frame)
+                    face_encodings = face_recognition.face_encodings(
+                        small_frame, face_locations
+                    )
+                    name = "Unknown"
+                    face_names = []
+                    for face_encoding in face_encodings:
+                        for ii in range(len(known_encods)):
+                            # See if the face is a match for the known face(s)
+                            match = face_recognition.compare_faces(
+                                [known_encods[ii]], face_encoding
+                            )
 
-#                 # Display the results
-#                 for (top, right, bottom, left), name in zip(face_locations, face_names):
-#                     # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-#                     top *= 4
-#                     right *= 4
-#                     bottom *= 4
-#                     left *= 4
+                            if match[0]:
+                                name = known_names[ii]
 
-#                     # Draw a box around the face
-#                     cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+                        face_names.append(name)
 
-#                     # Draw a label with a name below the face
-#                     cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+                process_this_frame = not process_this_frame
 
-#                     cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-#                     if unlock:
-#                         cv2.putText(frame, 'UNLOCK', (frame.shape[1]//2, frame.shape[0]//2), font, 1.0, (255, 255, 255), 1)
-#                     else:
-#                         cv2.putText(frame, 'LOCKED!', (frame.shape[1]//2, frame.shape[0]//2), font, 1.0, (255, 255, 255), 1)
-#             else:
-#                 cv2.putText(frame, 'WARNING!', (frame.shape[1]//2, frame.shape[0]//2), font, 1.0, (255, 255, 255), 1)
-#             # Display the liveness score in top left corner     
-#             cv2.putText(frame, str(pred[0][0]), (20, 20), font, 1.0, (255, 255, 0), 1)
-#             # Display the resulting image
-#             cv2.imshow('Video', frame)
+                unlock = False
+                for n in face_names:
 
-#             # Hit 'q' on the keyboard to quit!
-#             if cv2.waitKey(1) & 0xFF == ord('q'):
-#                 break
+                    if n != "Unknown":
+                        unlock = True
 
-#     # pickle.dump(model, open('model.pkl','wb'))
-#     # modelpkl = pickle.load(open('model.pkl','rb'))
-    # for x in face_names:
-    #     if x not in recognized:
-    #         recognized.append(x)
-    # for x in recognized:
-    #     userDetails=request.form
-    #     name = userDetails['name']
-    #     username=userDetails['username']
-    #     password=userDetails['password']
-    #     cur = mysql.connection.cursor()
-    #     result = cur.execute("SELECT id FROM employee where username="+x+";")
-    #     e_id=cur.fetchall()
-    #     e_id=e_id[0][0]
-    #     today = date.today()
-    #     today=str(today)
-    #     cur.execute("INSERT INTO attd VALUES("+str(e_id)+","+today+",true)")
-    #     mysql.connection.commit()
+                # Display the results
+                for (top, right, bottom, left), name in zip(face_locations, face_names):
+                    # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+                    top *= 4
+                    right *= 4
+                    bottom *= 4
+                    left *= 4
 
-#     # Release handle to the webcam
-    # video_capture.release()
-    # cv2.destroyAllWindows()
+                    # Draw a box around the face
+                    cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-#     return render_template('flogin.html')
+                    # Draw a label with a name below the face
+                    cv2.rectangle(
+                        frame,
+                        (left, bottom - 35),
+                        (right, bottom),
+                        (0, 0, 255),
+                        cv2.FILLED,
+                    )
 
-if __name__ == "__main__" :
+                    cv2.putText(
+                        frame,
+                        name,
+                        (left + 6, bottom - 6),
+                        font,
+                        1.0,
+                        (255, 255, 255),
+                        1,
+                    )
+                    if unlock:
+                        cv2.putText(
+                            frame,
+                            "UNLOCK",
+                            (frame.shape[1] // 2, frame.shape[0] // 2),
+                            font,
+                            1.0,
+                            (255, 255, 255),
+                            1,
+                        )
+                    else:
+                        cv2.putText(
+                            frame,
+                            "LOCKED!",
+                            (frame.shape[1] // 2, frame.shape[0] // 2),
+                            font,
+                            1.0,
+                            (255, 255, 255),
+                            1,
+                        )
+            else:
+                cv2.putText(
+                    frame,
+                    "WARNING!",
+                    (frame.shape[1] // 2, frame.shape[0] // 2),
+                    font,
+                    1.0,
+                    (255, 255, 255),
+                    1,
+                )
+            # Display the liveness score in top left corner
+            cv2.putText(frame, str(pred[0][0]), (20, 20), font, 1.0, (255, 255, 0), 1)
+            # Display the resulting image
+            cv2.imshow("Video", frame)
+
+            # Hit 'q' on the keyboard to quit!
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
+
+    # pickle.dump(model, open('model.pkl','wb'))
+    # modelpkl = pickle.load(open('model.pkl','rb'))
+
+    # Release handle to the webcam
+    video_capture.release()
+    cv2.destroyAllWindows()
+
+    for x in face_names:
+        if x not in recognized:
+            recognized.append(x)
+    
+    # userDetails = request.form
+    # name = userDetails["name"]
+    # username = userDetails["username"]
+    # password = userDetails["password"]
+    cur = mysql.connection.cursor()
+
+    for x in recognized:
+        print(x)
+        result = cur.execute("SELECT id FROM employee where username='" + x + "';")
+        e_id = cur.fetchall()
+        e_id = e_id[0][0]
+        today = date.today()
+        today = str(today)
+        cur.execute("INSERT INTO attd VALUES(" + str(e_id) + "," + today + ",true)")
+        mysql.connection.commit()
+
+    x=recognized[0]
+    if x:
+        return render_template("success.html")
+
+    return render_template("flogin.html")
+
+
+if __name__ == "__main__":
     app.run(debug=True)
