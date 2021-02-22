@@ -77,7 +77,7 @@ def alogin():
         else:
             cur.close()
             return render_template("fail.html")
-    return render_template("login.html")
+    return render_template("adlogin.html")
 
 
 @app.route("/emp/<id>")
