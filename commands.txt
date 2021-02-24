@@ -1,0 +1,26 @@
+MYSQL Commands :-
+
+create database unisys;
+
+use unisys;
+
+create table admin(id int, username varchar(20), password varchar(40), primary key(username));
+
+create table employee(id int, name varchar(20), password varchar(40), username varchar(20), email varchar(50), primary key(username,email));
+
+create table attd(e_id int,e_username varchar(20), d varchar(15), present tinyint(1),primary key(e_username,d), foreign key (e_username) references employee(username));
+
+insert into admin values(1,"lg","lg");
+
+insert into employee values(1,'nishit','abc','nishit','nishitk@gmail.com');
+
+delete from attd;
+
+delete from employee where username='laveesh';
+
+
+HTTP Model Serve Command :-
+
+http-server -c1 --cors
+
+
