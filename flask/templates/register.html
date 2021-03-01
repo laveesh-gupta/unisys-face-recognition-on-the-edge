@@ -1,43 +1,5 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <link rel="stylesheet" href="/static/stylesheet/register.css">
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <form action="" method="POST">
-      
-      
-      <-  <div style="height: 0px; overflow: hidden">
-        <input type="file" id="fileInput" name="fileInput" />
-      </div>
-      <button type="button" onclick="chooseFile();">choose file</button><br>-> 
-      
-      <div class="choose_file">
-        <span>Choose File</span>
-        <input name="Select File" type="file" />
-      </div>
-      <br>
-      <br>
-      Enter Name <input type="text" name="name" placeholder="Name"><br>
-      <br>
-      Enter Username <input type="text" name = "username" placeholder="userName"><br>
-      <br>
-      Enter Password <input type="text" name = "password" placeholder="password"><br>
-      <br>
-      <button type="submit">Submit</button>
-    </form>
-  </body>
-  <script>
-    function chooseFile() {
-       $("#fileInput").click();
-    }
- </script>
-</html> -->
 
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +33,7 @@
                           <div class="form-group">
                               <label for="password" class="text-info">Password:</label><br>
                               <input type="password" name="password" id="password" class="form-control">
-                              <!-- <i class="far fa-eye" id="togglePassword"></i> -->
+                              <!-- <i class="far fa-eye" id="togglePassword"></i> 
                           </div>
                           <div class="form-group">
                             <label for="password" class="text-info">Show Password</label><br>
@@ -110,6 +72,74 @@
 //     // toggle the eye slash icon
 //     this.classList.toggle('fa-eye-slash');
 //     });
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration Form</title>
+	<link rel="stylesheet" type="text/css" href="static/stylesheet/register.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<img class="wave" src="static/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="static/bg.svg">
+		</div>
+		<div class="login-content">
+			<form action="" method="post">
+				<img src="static/avatar.svg">
+				<h2 class="title">Registration Form</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Username</h5>
+           		   		<input type="text" name="username" id="username" class="input">
+           		   </div>
+           		</div>
+           		<div class="input-div one">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" name="password" id="password" class="input">
+            	   </div>
+            	</div>
+              <div class="input-div one">
+                <div class="i">
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="div">
+                    <h5>Email</h5>
+                    <input type="text" name="email" id="email" class="input">
+                </div>
+             </div>
+             <!-- <div class="div">
+              <label for="password" class="text-info">Show Password</label><br>
+              <input type="checkbox" onclick="myFunction()" class="form-control">
+            </div> -->
+            	<!-- <a href="#">Forgot Password?</a> -->
+            	<input type="submit" class="btn" value="Register">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/js/main.js">
+    // function myFunction() {
+    //     var x = document.getElementById("password");
+    //     if (x.type === "password") {
+    //       x.type = "text";
+    //     } else {
+    //       x.type = "password";
+    //     }
+    //   }
+  
     </script>
 </body>
 </html>

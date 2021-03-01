@@ -8,8 +8,8 @@
 
 </head>
 <body>
-<div class="abc">
-  <!-- <div class="child">  -->
+<!-- <div class="abc">
+  <!-- <div class="child">  
     <h1>Employees Details</h1>
     <table border="3">
       <tr>
@@ -25,7 +25,28 @@
         </tr>
       {% endfor %}
     </table>
-  <!-- </div> -->
+  <!-- </div> 
+</div> -->
+<div class="table-users">
+  <div class="header">Users</div>
+  
+  <table cellspacing="0">
+     <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <!-- <th>Phone</th> --> 
+        <!-- <th width="230">Comments</th> -->
+     </tr>
+
+     {% for emp in empDetails %}
+     <tr>
+      <td>{{emp[0]}}</td>
+      <td><a href = "/emp/{{emp[0]}}"> {{emp[1]}} </a></td>
+      <td>{{emp[3]}}</td>
+      </tr>
+      {% endfor %}
+  </table>
 </div>
 </body>
 </html>

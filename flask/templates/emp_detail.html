@@ -8,8 +8,8 @@
     
     </head>
     <body>
-    <div class="abc">
-      <!-- <div class="child">  -->
+    <!-- <div class="abc">
+       <div class="child"> 
         <h1>Employee Detail</h1>
         <table border="3">
             <tr>
@@ -23,7 +23,27 @@
             </tr>
           {% endfor %}
         </table>
-      <!-- </div> -->
-    </div>
+     </div> 
+    </div> -->
+    <div class="table-users">
+      <div class="header">{{detail[0][1]}}</div>
+      
+      <table cellspacing="0">
+         <tr>
+            <th>Date</th>
+            <th>Present</th>
+            <!-- <th>Email</th>
+            <th>Phone</th> -->
+            <!-- <th width="230">Comments</th> -->
+         </tr>
+   
+         {% for emp in detail %}
+            <tr>
+            <td>{{emp[2]}} </a></td>
+            <td>{{emp[3]}}</td>
+            </tr>
+          {% endfor %}
+      </table>
+   </div>
     </body>
     </html>
