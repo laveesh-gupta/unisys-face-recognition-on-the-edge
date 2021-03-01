@@ -115,7 +115,7 @@ def uploadfile():
         f = request.files["file"]
         f.save(os.path.join("people", secure_filename(f.filename)))
         enc.encrypt_all_files()
-        return "<h1>Registration Successful</h1>"
+        return render_template("regsuc.html")
 
     return render_template("uploadfile.html")
 
@@ -218,7 +218,7 @@ def login():
         result = cur.execute("SELECT * FROM employee WHERE username = (%s) ",(username,))
         if result > 0:
             return redirect("/verify/"+username)
-        return "<h1>Invalid Username</h1>"
+        return render_template("na.html")
     return render_template("login.html")
 
 @app.route('/verify/<username>',methods = ["POST","GET"])  
@@ -300,7 +300,7 @@ def verify(username):
             msg = Message('Alert !! ',sender = 'Administrator', recipients = [email])  
             msg.body = "There was an attempt to mark your attendance with wrong credentials; if it was not you contact the admin."
             mail.send(msg)  
-            return "<h3>failure, OTP does not match</h3>"
+            return render_template("na.html")
         except :
             return "<h1>Error!!! </h1>"
 
