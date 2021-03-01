@@ -108,7 +108,7 @@ def view_atd():
 
 
 @app.route("/uploadfile", methods=["GET", "POST"])
-@jwt_required()
+# @jwt_required()
 def uploadfile():
     enc.decrypt_all_files()
     if request.method == "POST":
@@ -121,7 +121,7 @@ def uploadfile():
 
 
 @app.route("/register", methods=["GET", "POST"])
-@jwt_required()
+# @jwt_required()
 def register():
     try:
         if request.method == "POST":
@@ -206,7 +206,7 @@ def register():
 #     return render_template("login.html")
 
 @app.route("/emp_login", methods=["GET", "POST"])
-@jwt_required()
+# @jwt_required()
 def login():
     # return "login"
     if request.method == "POST":
@@ -222,7 +222,7 @@ def login():
     return render_template("login.html")
 
 @app.route('/verify/<username>',methods = ["POST","GET"])  
-@jwt_required()
+# @jwt_required()
 def verify(username):
     global otp
     if request.method == "GET" :
