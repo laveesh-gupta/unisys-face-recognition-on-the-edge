@@ -766,15 +766,15 @@ def test_liveness(data):
                 # input_vid = []
                 cur = mysql.connection.cursor()
 
-                # for x in face_names:
-                #     print(x)
-                #     result = cur.execute("SELECT id FROM employee where username='" + x + "';")
-                #     e_id = cur.fetchall()
-                #     e_id = e_id[0][0]
-                #     today = date.today()
-                #     today = str(today)
-                #     cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
-                #     mysql.connection.commit()
+                for x in face_names:
+                    print(x)
+                    result = cur.execute("SELECT id FROM employee where username='" + x + "';")
+                    e_id = cur.fetchall()
+                    e_id = e_id[0][0]
+                    today = date.today()
+                    today = str(today)
+                    cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
+                    mysql.connection.commit()
 
                 if len(face_names):
                     emit('redirect', {'url': 'success'})
