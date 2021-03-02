@@ -176,7 +176,7 @@ socket.on("stop", (json_response) => {
 socket.on("face names", (json_response) => {
   let response = JSON.parse(json_response);
   console.log("names: " + response.names);
-  document.getElementById("recon").innerHTML = "Recognized: "+response.names;
+  document.getElementById("recon").innerHTML = "Recognized and attendance marked: "+response.names;
   newFace = false;
   clearInterval(sendFramesIntervalId);
 });

@@ -796,8 +796,8 @@ def test_liveness(data):
                     mail.send(msg) 
                     # return "<h1>Attendance already marked for the day.</h1>"
 
-                if len(face_names):
-                    emit('redirect', {'url': 'success'})
+                # if len(face_names):
+                #     emit('redirect', {'url': 'success'})
                 
                 # if len(face_names):
                 #     return render_template("success.html")
