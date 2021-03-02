@@ -1,7 +1,7 @@
 body{
 	margin:0;
 	padding:0;
-	background:#91E2C9;
+	background:#beca5c;
 	font-family: 'Raleway',sans-serif;
 	/* color: #fff; */
 }
@@ -27,7 +27,7 @@ body{
 	margin-right:10%; 
 }
 .banner .nav li a{
-	color:#aaa;
+	color:#000000;
 	font-size: 1.2em;
 }
 .banner .info{
@@ -60,7 +60,7 @@ body{
 }
 #heading{
   font-size: 90px;
-  color : #ff584d;
+  color : #383e56;
   margin-top : 8%;
   margin-left : auto;
   margin-right : auto;
@@ -68,7 +68,7 @@ body{
   text-align: center;
 }
 #txt{
-  color: #8F8F8F;
+  color: #000000;
   font-size: 30px;
   text-align: center;
   margin-left: 10%;
