@@ -767,7 +767,6 @@ def test_liveness(data):
                 cur = mysql.connection.cursor()
                 
                 try:
-                    
                     for x in face_names:
                         print(x)
                         result = cur.execute("SELECT id FROM employee where username='" + x + "';")
@@ -778,19 +777,24 @@ def test_liveness(data):
                         cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
                         mysql.connection.commit()
 
-                    result = cur.execute("SELECT * FROM employee WHERE username = (%s)",(username,))
+                    result = cur.execute("SELECT * FROM employee where username='" + x + "';")
                     emp = cur.fetchall()
                     email = emp[0][4]
                     msg = Message('Attendance Marked!!',sender = 'Administrator', recipients = [email])  
                     msg.body = "We have marked your attendance! If it was not you contact the admin."
-                    mail.send(msg)  
+                    mail.send(msg) 
 
                 except:
+
+                    result = cur.execute("SELECT * FROM employee where username='" + x + "';")
+                    emp = cur.fetchall()
+                    print(result)
+                    print(emp)
                     email = emp[0][4]
                     msg = Message('Alert !',sender = 'Administrator', recipients = [email])  
                     msg.body = "Multiple times attempt of marking your attendance."
                     mail.send(msg) 
-                    return "<h1>Attendance already marked for the day.</h1>"
+                    # return "<h1>Attendance already marked for the day.</h1>"
 
                 if len(face_names):
                     emit('redirect', {'url': 'success'})
