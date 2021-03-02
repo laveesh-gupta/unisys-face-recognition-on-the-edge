@@ -143,7 +143,7 @@ def register():
                 mysql.connection.commit()
                 return render_template("uploadfiles.html")
             except:
-                return "<h1>Already registered.</h1>"
+                return render_template("alrreg.html")
 
         return render_template("register.html")
     except:
@@ -284,7 +284,7 @@ def verify(username):
                 msg = Message('Alert !',sender = 'Administrator', recipients = [email])  
                 msg.body = "Multiple times attempt of marking your attendance! If it was not you contact the admin"
                 mail.send(msg) 
-                return "<h1>Attendance already marked for the day.</h1>"
+                return render_template("alratd.html")
 
             # return render_template("success.html")
         
@@ -300,7 +300,7 @@ def verify(username):
             msg = Message('Alert !! ',sender = 'Administrator', recipients = [email])  
             msg.body = "There was an attempt to mark your attendance with wrong credentials; if it was not you contact the admin."
             mail.send(msg)  
-            return render_template("na.html")
+            return render_template("fail.html")
         except :
             return "<h1>Error!!! </h1>"
 
