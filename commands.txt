@@ -8,7 +8,7 @@ create table admin(id int, username varchar(20), password varchar(40), primary k
 
 create table employee(id int, name varchar(20), password varchar(40), username varchar(20), email varchar(50), primary key(username,email));
 
-create table attd(e_id int,e_username varchar(20), d varchar(15), present tinyint(1),primary key(e_username,d), foreign key (e_username) references employee(username));
+create table attd(e_id int,e_username varchar(20), d varchar(15) ,t_in varchar(15), t_out varchar(15), present tinyint(1),primary key(e_username,d), foreign key (e_username) references employee(username));
 
 insert into admin values(1,"lg","lg");
 
