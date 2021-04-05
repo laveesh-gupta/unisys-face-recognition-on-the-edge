@@ -256,21 +256,31 @@ def verify(username):
             # today = date.today()
             # today = (today.strftime("%Y"))+"-"+(today.strftime("%m"))+"-"+(today.strftime("%d"))
             # today = str(today)
-            today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            print(today)
+            # todayDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            today = datetime.now()
+
+            tdate = today.strftime("%d-%m-%Y")
+            ttime = today.strftime("%H:%M:%S")
+            print(today, tdate, ttime)
+
             # stoday = today+""
             # print(typeof(today))
             # e_id = int(result.id)
+            
             emp = cur.fetchall()
+            
             # print(type(emp[0][0]))
+            
             print(emp)
             try:
                 cur.execute(
                     "insert into attd values("
+                    + str(emp[0][0]) + ",'"
                     + str(emp[0][3])
                     + "','"
-                    + today + ",null"
-                    + ",true);"
+                    + str(tdate) + "','"+ str(ttime) + "','"
+                    + str(ttime) +"');"
                 )
                 mysql.connection.commit()
   

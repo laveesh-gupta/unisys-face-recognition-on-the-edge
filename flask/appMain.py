@@ -674,10 +674,30 @@ def verify(username):
 #             result = cur.execute("SELECT id FROM employee where username='" + x + "';")
 #             e_id = cur.fetchall()
 #             e_id = e_id[0][0]
-#             today = date.today()
-#             today = str(today)
-#             cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
-#             mysql.connection.commit()
+
+# Changed from here for tin tout
+#             today = datetime.now()
+#             tdate = today.strftime("%d-%m-%Y")
+#             ttime = today.strftime("%H:%M:%S")
+
+#             result = cur.execute("SELECT* FROM attd where e_username='" + x + "' AND d='" + tdate +"';")
+              
+#              if result > 0 :
+#                  tempp = cur.fetchall()
+#                  temp1 = tempp[0]
+#                  temp2 = tempp[-1]
+#                  if temp1[4] === NULL or temp2[4] === NULL :
+#                       cur.execute("UPDATE attd SET tout ='"+str(ttime)+"' WHERE e_id ="+str(e_id)+" AND tdate ='"+tdate+"' AND tout = NULL;")
+#              else 
+#                  cur.execute(
+#                  "insert into attd values("
+#                   + str(e_id) + ",'"
+#                   + x
+#                   + "','"
+#                   + str(tdate) + "','"+ str(ttime) + "', NULL);"
+#                   )                     
+#  Leave this line commented           cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
+#              mysql.connection.commit()
 
 #         x=recognized[0]
 #         if x:

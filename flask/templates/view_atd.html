@@ -39,7 +39,7 @@
         <!-- <th width="230">Comments</th> -->
      </tr>
 
-     {% for emp in empDetails %}
+     {% for emp in empDetails[::-1] %}
      <tr>
       <td>{{emp[0]}}</td>
       <td><a href = "/emp/{{emp[0]}}"> {{emp[1]}} </a></td>
