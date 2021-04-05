@@ -3,7 +3,11 @@
 # mysql_password: '@khaitan'
 # mysql_db: 'unisys'
 
-mysql_host: 'sql12.freemysqlhosting.net'
-mysql_user: 'sql12394735'
-mysql_password: 'ut1DX5W3Un'
-mysql_db: 'sql12394735'
+mysql_host: 'bxkoczuogacjd1tq9p1p-mysql.services.clever-cloud.com'
+mysql_user: 'ueqj55jbewjjivrk'
+mysql_password: 'AxNIgrXi8l3DD8Mw6X7G'
+mysql_db: 'bxkoczuogacjd1tq9p1p'
+
+
+
+

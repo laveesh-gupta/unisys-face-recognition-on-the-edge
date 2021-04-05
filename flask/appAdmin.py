@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, abort, redirect, jsonify
 from flask_mysqldb import MySQL
-from datetime import date
+# from datetime import 
+from datetime import datetime
 from werkzeug.utils import secure_filename
 import yaml
 import os
@@ -252,24 +253,24 @@ def verify(username):
                 "SELECT * FROM employee WHERE username = (%s)",
                 (username,)
             )
-            today = date.today()
+            # today = date.today()
             # today = (today.strftime("%Y"))+"-"+(today.strftime("%m"))+"-"+(today.strftime("%d"))
-            today = str(today)
+            # today = str(today)
+            today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             print(today)
             # stoday = today+""
             # print(typeof(today))
             # e_id = int(result.id)
             emp = cur.fetchall()
             # print(type(emp[0][0]))
-
+            print(emp)
             try:
                 cur.execute(
                     "insert into attd values("
-                    + str(emp[0][0]) +",'"
                     + str(emp[0][3])
                     + "','"
-                    + today
-                    + "',true);"
+                    + today + ",null"
+                    + ",true);"
                 )
                 mysql.connection.commit()
   
