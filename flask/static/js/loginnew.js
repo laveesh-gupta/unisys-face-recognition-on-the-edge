@@ -185,13 +185,18 @@ socket.on("stop", (json_response) => {
 socket.on("face names", (json_response) => {
   let response = JSON.parse(json_response);
   console.log("names: " + response.names);
-  document.getElementById("recon").innerHTML = "Recognized and attendance marked: "+response.names;
-  // swal({
-  //   title: "Successful",
-  //   text: "You have been marked in.",
-  //   icon: "success",
-  //   timer: 3000
-  //   });
+  let received_name = response.names;
+  if(received_name !== "set()"){
+    let person_name = received_name.split("'")[1];
+    let display_name = 'Hi '+person_name+', you have been marked';
+    document.getElementById("recon").innerHTML = "Recognized and attendance marked: "+response.names;
+    swal({
+    title: "Successful",
+    text: display_name,
+    icon: "success",
+    timer: 3000
+    });
+  }
   newFace = false;
   clearInterval(sendFramesIntervalId);
 });

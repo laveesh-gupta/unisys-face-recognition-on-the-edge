@@ -800,56 +800,115 @@ def test_liveness(data):
 
                 try:
                     # for x in face_names: #testing purpose
-                        x = face_names[0]
-                        print(x)
-                        result = cur.execute(
-                            "SELECT id FROM employee where username='" + x + "';")
-                        e_id = cur.fetchall()
-                        e_id = e_id[0][0]
+                    #     # x = face_names[0]
+                    #     print(x)
+                    #     result = cur.execute(
+                    #         "SELECT id FROM employee where username='" + x + "';")
+                    #     e_id = cur.fetchall()
+                    #     e_id = e_id[0][0]
+                    #     # today = date.today()
+                    #     # today = str(today)
+                    #     # cur.execute("INSERT INTO attd VALUES(" +
+                    #     #             str(e_id) + ",'"+x+"','" + today + "',true)")
+                    #     # mysql.connection.commit()
+
+                    #     print("before before")
+
+                    #     today = datetime.now()
+                    #     tdate = today.strftime("%d-%m-%Y")
+                    #     ttime = today.strftime("%H:%M:%S")
+                        
+                    #     print("before")
+                        
+                    #     result = cur.execute("SELECT * FROM attd where e_username='" + str(x) + "' AND d='" + str(tdate) +"';")
+                        
+                    #     print("after")
+                        
+                    #     # tempp = cur.fetchall()
+                    #     # print(tempp)
+                    #     if result > 0 :
+                    #         print("inside if")
+                    #         tempp = cur.fetchall()
+                    #         temp1 = tempp[0]
+                    #         temp2 = tempp[-1]
+                    #         print(temp1, temp2)
+                    #         if temp1[4] == None or temp2[4] == None :
+                    #         # if temp1[4] == NULL:
+                    #             print("inside inside if")
+                    #             cur.execute("UPDATE attd SET t_out ='"+str(ttime)+"' WHERE e_id ="+str(e_id)+" AND d ='"+str(tdate)+"' AND t_out IS NULL;")
+                    #             mysql.connection.commit()
+                    #         else:
+                    #             print("inside inside else")
+                    #             cur.execute(
+                    #             "insert into attd values("
+                    #             + str(e_id) + ",'"
+                    #             + str(x)
+                    #             + "','"
+                    #             + str(tdate) + "','"+ str(ttime) + "', NULL);"
+                    #             )
+                    #             mysql.connection.commit()
+                        
+                    #     else:
+                    #         print("inside else")
+                    #         cur.execute(
+                    #         "insert into attd values("
+                    #         + str(e_id) + ",'"
+                    #         + str(x)
+                    #         + "','"
+                    #         + str(tdate) + "','"+ str(ttime) + "', NULL);"
+                    #         )
+                    #         mysql.connection.commit()                     
+                    #     #  Leave this line commented           cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
+                    #     result = cur.execute("SELECT * FROM employee where username='" + str(x) + "';")
+                    #     emp = cur.fetchall()
+                    #     email = emp[0][4]
+                    #     msg = Message('Attendance Marked!!',sender = 'Administrator', recipients = [email])  
+                    #     msg.body = "We have marked your attendance! If it was not you contact the admin."
+                    #     mail.send(msg)
+
+                    #     #delete name from recognized set
+                    #     face_names.remove(x)
+                    #     print("for loop completed")
+         
+                    x = list(face_names)[0]
+                    print(x)
+                    result = cur.execute(
+                        "SELECT id FROM employee where username='" + x + "';")
+                    e_id = cur.fetchall()
+                    e_id = e_id[0][0]
                         # today = date.today()
                         # today = str(today)
                         # cur.execute("INSERT INTO attd VALUES(" +
                         #             str(e_id) + ",'"+x+"','" + today + "',true)")
                         # mysql.connection.commit()
 
-                        print("before before")
+                    print("before before")
 
-                        today = datetime.now()
-                        tdate = today.strftime("%d-%m-%Y")
-                        ttime = today.strftime("%H:%M:%S")
+                    today = datetime.now()
+                    tdate = today.strftime("%d-%m-%Y")
+                    ttime = today.strftime("%H:%M:%S")
                         
-                        print("before")
+                    print("before")
                         
-                        result = cur.execute("SELECT * FROM attd where e_username='" + str(x) + "' AND d='" + str(tdate) +"';")
+                    result = cur.execute("SELECT * FROM attd where e_username='" + str(x) + "' AND d='" + str(tdate) +"';")
                         
-                        print("after")
+                    print("after")
                         
                         # tempp = cur.fetchall()
                         # print(tempp)
-                        if result > 0 :
-                            print("inside if")
-                            tempp = cur.fetchall()
-                            temp1 = tempp[0]
-                            temp2 = tempp[-1]
-                            print(temp1, temp2)
-                            if temp1[4] == None or temp2[4] == None :
-                            # if temp1[4] == NULL:
-                                print("inside inside if")
-                                cur.execute("UPDATE attd SET t_out ='"+str(ttime)+"' WHERE e_id ="+str(e_id)+" AND d ='"+str(tdate)+"' AND t_out IS NULL;")
-                                mysql.connection.commit()
-                            else:
-                                print("inside inside else")
-                                cur.execute(
-                                "insert into attd values("
-                                + str(e_id) + ",'"
-                                + str(x)
-                                + "','"
-                                + str(tdate) + "','"+ str(ttime) + "', NULL);"
-                                )
-                                mysql.connection.commit()
-                        
+                    if result > 0 :
+                        print("inside if")
+                        tempp = cur.fetchall()
+                        temp1 = tempp[0]
+                        temp2 = tempp[-1]
+                        print(temp1, temp2)
+                        if temp1[4] == None or temp2[4] == None :
+                        # if temp1[4] == NULL:
+                            print("inside inside if")
+                            cur.execute("UPDATE attd SET t_out ='"+str(ttime)+"' WHERE e_id ="+str(e_id)+" AND d ='"+str(tdate)+"' AND t_out IS NULL;")
+                            mysql.connection.commit()
                         else:
-                            print("inside else")
+                            print("inside inside else")
                             cur.execute(
                             "insert into attd values("
                             + str(e_id) + ",'"
@@ -857,19 +916,30 @@ def test_liveness(data):
                             + "','"
                             + str(tdate) + "','"+ str(ttime) + "', NULL);"
                             )
-                            mysql.connection.commit()                     
+                            mysql.connection.commit()
+                        
+                    else:
+                        print("inside else")
+                        cur.execute(
+                        "insert into attd values("
+                        + str(e_id) + ",'"
+                        + str(x)
+                        + "','"
+                        + str(tdate) + "','"+ str(ttime) + "', NULL);"
+                        )
+                        mysql.connection.commit()                     
                         #  Leave this line commented           cur.execute("INSERT INTO attd VALUES(" + str(e_id) + ",'"+x+"','" + today + "',true)")
-                        result = cur.execute("SELECT * FROM employee where username='" + str(x) + "';")
-                        emp = cur.fetchall()
-                        email = emp[0][4]
-                        msg = Message('Attendance Marked!!',sender = 'Administrator', recipients = [email])  
-                        msg.body = "We have marked your attendance! If it was not you contact the admin."
-                        mail.send(msg)
+                    result = cur.execute("SELECT * FROM employee where username='" + str(x) + "';")
+                    emp = cur.fetchall()
+                    email = emp[0][4]
+                    msg = Message('Attendance Marked!!',sender = 'Administrator', recipients = [email])  
+                    msg.body = "We have marked your attendance! If it was not you contact the admin."
+                    mail.send(msg)
 
                         #delete name from recognized set
-                        face_names.remove(x)
-                        print("for loop completed")
-                    
+                    face_names.remove(x)
+                    print("for loop completed")
+                        
 
                 except:
                     print("inside except")
