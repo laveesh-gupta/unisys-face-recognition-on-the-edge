@@ -22,5 +22,3 @@ delete from employee where username='laveesh';
 HTTP Model Serve Command :-
 
 http-server -c1 --cors
-
-

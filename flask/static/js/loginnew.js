@@ -16,6 +16,15 @@ var socket = io.connect("http://127.0.0.1:5000/", {
   timeout: 999999999,
 });
 console.log("hello");
+
+// setTimeout(function(){ swal("Hello world!","","success");}, 3000);
+// swal({
+//   title: "Successful",
+//   text: "You have been marked in.",
+//   icon: "success",
+//   timer: 3000
+//   });
+
 socket.on("connect", function () {
   console.log("SOCKET CONNECTED");
 });
@@ -177,6 +186,12 @@ socket.on("face names", (json_response) => {
   let response = JSON.parse(json_response);
   console.log("names: " + response.names);
   document.getElementById("recon").innerHTML = "Recognized and attendance marked: "+response.names;
+  // swal({
+  //   title: "Successful",
+  //   text: "You have been marked in.",
+  //   icon: "success",
+  //   timer: 3000
+  //   });
   newFace = false;
   clearInterval(sendFramesIntervalId);
 });

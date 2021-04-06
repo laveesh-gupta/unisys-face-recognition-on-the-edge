@@ -16,8 +16,11 @@ def get_users():
 
     for i in glob("people/*.jpg"):
         img = face_recognition.load_image_file(i)
+        print("here 1")
         encoding = face_recognition.face_encodings(img)[0]
+        print("here 2")
         known_encods.append(encoding)
+        print("here 3")
         known_names.append(i[7:-4])
 
     enc.encrypt_all_files()
