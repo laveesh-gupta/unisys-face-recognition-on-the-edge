@@ -189,7 +189,7 @@ socket.on("face names", (json_response) => {
   if(received_name !== "set()"){
     let person_name = received_name.split("'")[1];
     let display_name = 'Hi '+person_name+', you have been marked';
-    document.getElementById("recon").innerHTML = "Recognized and attendance marked: "+response.names;
+    // document.getElementById("recon").innerHTML = "Recognized and attendance marked: "+response.names;
     swal({
     title: "Successful",
     text: display_name,

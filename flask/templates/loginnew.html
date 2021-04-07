@@ -34,7 +34,8 @@
   </head>
   <body>
     <div id="main">
-      <video
+      <div style = "text-align:center">
+        <video
         id="video"
         playsinline
         style="
@@ -45,7 +46,7 @@
         "
       ></video>
       <canvas id="output"></canvas>
-      <video
+      <!-- <video
         id="video"
         playsinline
         style="
@@ -55,7 +56,7 @@
           width: auto;
           height: auto;
         "
-      ></video>
+      ></video> -->
       <form
         id="myAwesomeForm"
         method="post"
@@ -66,9 +67,10 @@
         <!-- Filename -->
       </form>
       <canvas id="canvas" hidden></canvas>
+      </div>
     </div>
-    <h3 id="live">Liveness: </h3><br>
-    <h3 id="recon">Recognized and attendance marked: </h3><br>
+    <center><h3 id="live">Liveness: 0</h3></center><br>
+    <!-- <h3 id="recon">Recognized and attendance marked: </h3><br> -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
