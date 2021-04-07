@@ -936,7 +936,7 @@ def test_liveness(data):
                     msg.body = "We have marked your attendance! If it was not you contact the admin."
                     mail.send(msg)
 
-                        #delete name from recognized set
+                    #delete name from recognized set
                     face_names.remove(x)
                     print("for loop completed")
                         

@@ -8,6 +8,7 @@
     <style>
       body {
         margin: 25px;
+        text-align: center;
       }
 
       #main {
@@ -15,10 +16,13 @@
         margin: 50px 0;
       }
 
-      canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
+      /* canvas {
+        position: relative;
+      } */
+      
+      #output {
+        position: relative;
+        margin: auto;
       }
 
       #description {
@@ -26,16 +30,29 @@
         width: 600px;
       }
 
+      #video{
+        position: absolute;
+        margin: auto;
+      }
+
       #description-title {
         font-weight: bold;
         font-size: 18px;
       }
+
+      /* #live{
+        margin-top: 120px;
+      } */
+
     </style>
   </head>
   <body>
     <div id="main">
-      <div style = "text-align:center">
-        <video
+      <!-- <div style = "text-align:center"> -->
+        <h1>
+          BIOMETRIC SCANNER 
+        </h1>
+        <video 
         id="video"
         playsinline
         style="
@@ -46,7 +63,7 @@
         "
       ></video>
       <canvas id="output"></canvas>
-      <!-- <video
+      <video
         id="video"
         playsinline
         style="
@@ -56,7 +73,7 @@
           width: auto;
           height: auto;
         "
-      ></video> -->
+      ></video>
       <form
         id="myAwesomeForm"
         method="post"
@@ -67,7 +84,7 @@
         <!-- Filename -->
       </form>
       <canvas id="canvas" hidden></canvas>
-      </div>
+      <!-- </div> -->
     </div>
     <center><h3 id="live">Liveness: 0</h3></center><br>
     <!-- <h3 id="recon">Recognized and attendance marked: </h3><br> -->
